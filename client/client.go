@@ -3,6 +3,8 @@ package client
 import (
 	"crypto/ecdsa"
 
+	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/outprog/gozx/models"
 )
 
@@ -19,8 +21,7 @@ func New(privateKey ecdsa.PrivateKey, config models.Config) *Client {
 	}
 }
 
-func (c *Client) GenOrder() models.Order {
-	return models.Order{}
+func (c *Client) Address() string {
+	addr := crypto.PubkeyToAddress(c.key.PublicKey)
+	return hexutil.Encode(addr[:])
 }
-
-func (c *Client) FillOrder() {}
