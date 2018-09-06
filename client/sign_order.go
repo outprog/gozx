@@ -1,26 +1,35 @@
 package client
 
 import (
+	"strconv"
 	"time"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/outprog/gozx/models"
+	"github.com/outprog/gozx/utils"
 )
 
-func (c *Client) SignOrder(makerToken, takerToken models.Token) models.Order {
+func (c *Client) SignOrder(makerToken, takerToken models.Token) (models.Order, error) {
 	maker := c.Address()
-	makerAssetData := ""
-	takerAssetData := ""
+	makerAssetData, err := utils.EncodeERC20AssetData(makerToken.Address)
+	if err != nil {
+		return models.Order{}, err
+	}
+	takerAssetData, err := utils.EncodeERC20AssetData(takerToken.Address)
+	if err != nil {
+		return models.Order{}, err
+	}
 
-	order := c.genOrder(maker, "", "", makerAssetData, takerAssetData)
-	return order
+	order := c.genOrder(maker, "1", "1", makerAssetData, takerAssetData)
+	return order, nil
 }
 
-func (c *Client) genOrder(maker, makerAssetAmount, takerAssetAmount, makerAssetData, takerAssetData string) models.Order {
+func (c *Client) genOrder(maker common.Address, makerAssetAmount, takerAssetAmount, makerAssetData, takerAssetData string) models.Order {
 	salt := ""
 
 	return models.Order{
 		ExchangeAddress:       c.config.ExchangeContractAddress,
-		ExpirationTimeSeconds: time.Now().Unix() + 60*60,
+		ExpirationTimeSeconds: strconv.FormatInt((time.Now().Unix() + 60*60), 10),
 		FeeRecipientAddress:   models.NullAddress,
 		MakerAddress:          maker,
 		MakerAssetAmount:      makerAssetAmount,

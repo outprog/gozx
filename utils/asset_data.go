@@ -10,7 +10,7 @@ import (
 )
 
 func EncodeERC20AssetData(tokenAddr common.Address) (assetData string, err error) {
-	erc20, err := genABI(ERC20ABI)
+	erc20, err := genABI(ERC20_ABI)
 	if err != nil {
 		return
 	}
@@ -32,7 +32,7 @@ func DecodeERC20AssetData(assetData string) (tokenAddr common.Address, err error
 		return
 	}
 
-	erc20, err := genABI(ERC20ABI)
+	erc20, err := genABI(ERC20_ABI)
 	if err != nil {
 		return
 	}

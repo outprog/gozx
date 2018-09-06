@@ -6,7 +6,7 @@ import (
 
 type Order struct {
 	ExchangeAddress       common.Address
-	ExpirationTimeSeconds int64
+	ExpirationTimeSeconds string
 	FeeRecipientAddress   common.Address
 	MakerAddress          common.Address
 	MakerAssetAmount      string

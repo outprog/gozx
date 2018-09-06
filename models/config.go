@@ -1,12 +1,14 @@
 package models
 
+import "github.com/ethereum/go-ethereum/common"
+
 type Config struct {
 	EthRPC string
 
-	Erc20ProxyContractAddress  string
-	Erc721ProxyContractAddress string
-	ExchangeContractAddress    string
-	ForwarderContractAddress   string
+	Erc20ProxyContractAddress  common.Address
+	Erc721ProxyContractAddress common.Address
+	ExchangeContractAddress    common.Address
+	ForwarderContractAddress   common.Address
 	GasPrice                   int64
-	ZrxContractAddress         string
+	ZrxContractAddress         common.Address
 }
