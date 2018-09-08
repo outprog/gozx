@@ -35,3 +35,12 @@ func (c *Client) GenOrder(makerToken, takerToken models.Token, makerAssetAmount,
 		TakerFee:              "0",
 	}, nil
 }
+
+func (c *Client) SignOrder(order *models.Order, signType int) (string, error) {
+	orderHash, err := utils.GetOrderHash(order)
+	if err != nil {
+		return "", err
+	}
+
+	return utils.Signature(c.key, orderHash, signType)
+}
