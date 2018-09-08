@@ -10,8 +10,8 @@ import (
 	"github.com/outprog/gozx/models"
 )
 
-func TestGetOrderHashHex(t *testing.T) {
-	orderHash, err := GetOrderHashHex(&models.Order{
+func TestGetOrderHash(t *testing.T) {
+	orderHash, err := GetOrderHash(&models.Order{
 		ExchangeAddress:       common.HexToAddress("0x35dd2932454449b14cee11a94d3674a936d5d7b2"),
 		MakerAddress:          common.HexToAddress("0x5409ed021d9299bf6814279a6a1411a7e866a631"),
 		FeeRecipientAddress:   models.NullAddress,

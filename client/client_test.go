@@ -1,19 +1,19 @@
 package client
 
 import (
-	"crypto/rand"
+	"fmt"
 
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/crypto/ecies"
 	"github.com/outprog/gozx/models"
 )
 
 var TestClient *Client
 
 func init() {
-	prv, err := ecies.GenerateKey(rand.Reader, crypto.S256(), nil)
+	prv, err := crypto.GenerateKey()
 	if err != nil {
 		panic(err)
 	}
-	TestClient = New(prv, &models.KovanConfig)
+	prvHex := fmt.Sprintf("%x", crypto.FromECDSA(prv))
+	TestClient = New(prvHex, &models.KovanConfig)
 }

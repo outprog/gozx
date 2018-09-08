@@ -8,8 +8,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestSignOrder(t *testing.T) {
-	order, err := TestClient.SignOrder(models.KovanTokens["WETH"], models.KovanTokens["ZRX"])
+func TestGenOrder(t *testing.T) {
+	order, err := TestClient.GenOrder(models.KovanTokens["WETH"], models.KovanTokens["ZRX"], "1", "1")
 	require.NoError(t, err)
 	fmt.Printf("%+v\n", order)
 }

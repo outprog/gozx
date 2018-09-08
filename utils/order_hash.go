@@ -9,7 +9,7 @@ import (
 	"github.com/outprog/gozx/models"
 )
 
-func GetOrderHashHex(order *models.Order) (string, error) {
+func GetOrderHash(order *models.Order) (string, error) {
 	hash, err := hashOrder(order)
 	if err != nil {
 		return "", err

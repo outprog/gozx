@@ -1,25 +1,30 @@
 package client
 
 import (
+	"crypto/ecdsa"
+
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/crypto/ecies"
 	"github.com/outprog/gozx/models"
 )
 
 // Client for 0x protocol
 type Client struct {
-	key    *ecies.PrivateKey
+	key    *ecdsa.PrivateKey
 	config *models.Config
 }
 
-func New(privateKey *ecies.PrivateKey, config *models.Config) *Client {
+func New(keyHex string, config *models.Config) *Client {
+	k, err := crypto.HexToECDSA(keyHex)
+	if err != nil {
+		panic(err)
+	}
 	return &Client{
-		key:    privateKey,
+		key:    k,
 		config: config,
 	}
 }
 
 func (c *Client) Address() common.Address {
-	return crypto.PubkeyToAddress(c.key.ExportECDSA().PublicKey)
+	return crypto.PubkeyToAddress(c.key.PublicKey)
 }
