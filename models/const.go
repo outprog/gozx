@@ -1,12 +1,16 @@
 package models
 
-import "github.com/ethereum/go-ethereum/common"
+import (
+	"github.com/ethereum/go-ethereum/common"
+)
 
 const (
 	GasLimit = uint64(400000)
 )
 
-var NullAddress = common.HexToAddress("0x0000000000000000000000000000000000000000")
+var (
+	NullAddress = common.HexToAddress("0x0000000000000000000000000000000000000000")
+)
 
 // Config for kovan
 var (

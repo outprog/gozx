@@ -9,7 +9,7 @@ func TestWethDeposit(t *testing.T) {
 	// require.NoError(t, err)
 	// txHash, err := TestClient.WethDeposit(big.NewInt(100000000000000000),
 	// 	big.NewInt(100000), nonce)
-	// fmt.Println(txHash, err)
+	// fmt.Println(txHash.Hex(), err)
 }
 
 func TestWethWithdraw(t *testing.T) {
@@ -17,5 +17,5 @@ func TestWethWithdraw(t *testing.T) {
 	// require.NoError(t, err)
 	// txHash, err := TestClient.WethWithdraw(big.NewInt(100000000000000000),
 	// 	big.NewInt(100000), nonce)
-	// fmt.Println(txHash, err)
+	// fmt.Println(txHash.Hex(), err)
 }

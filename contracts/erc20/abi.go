@@ -1,6 +1,6 @@
 package erc20
 
-const ERC20_ABI = `[
+const Erc20ABI = `[
 	{
 		"constant": false,
 		"inputs": [
