@@ -28,12 +28,7 @@ func (c *Client) WethDeposit(amount, gasPrice *big.Int, nonce uint64) (txHash co
 		return
 	}
 
-	err = c.ec.SendTransaction(context.TODO(), tx)
-	if err != nil {
-		return
-	}
-
-	return tx.Hash(), nil
+	return tx.Hash(), c.ec.SendTransaction(context.TODO(), tx)
 }
 
 func (c *Client) WethWithdraw(amount, gasPrice *big.Int, nonce uint64) (txHash common.Hash, err error) {
@@ -54,10 +49,5 @@ func (c *Client) WethWithdraw(amount, gasPrice *big.Int, nonce uint64) (txHash c
 		return
 	}
 
-	err = c.ec.SendTransaction(context.TODO(), tx)
-	if err != nil {
-		return
-	}
-
-	return tx.Hash(), nil
+	return tx.Hash(), c.ec.SendTransaction(context.TODO(), tx)
 }

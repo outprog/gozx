@@ -5,10 +5,17 @@ import (
 )
 
 func TestWethDeposit(t *testing.T) {
-	// txHash, err := TestClient.WethDeposit("100000000000000000")
+	// nonce, err := TestClient.Nonce()
+	// require.NoError(t, err)
+	// txHash, err := TestClient.WethDeposit(big.NewInt(100000000000000000),
+	// 	big.NewInt(100000), nonce)
 	// fmt.Println(txHash, err)
 }
 
 func TestWethWithdraw(t *testing.T) {
-	// testClient.WethWithdraw("100000000000000000")
+	// nonce, err := TestClient.Nonce()
+	// require.NoError(t, err)
+	// txHash, err := TestClient.WethWithdraw(big.NewInt(100000000000000000),
+	// 	big.NewInt(100000), nonce)
+	// fmt.Println(txHash, err)
 }
