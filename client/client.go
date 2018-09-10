@@ -47,6 +47,10 @@ func New(keyHex string, config *models.Config) *Client {
 	}
 }
 
+func (c *Client) Nonce() (uint64, error) {
+	return c.ec.NonceAt(context.TODO(), c.Address(), nil)
+}
+
 func (c *Client) Address() common.Address {
 	return crypto.PubkeyToAddress(c.key.PublicKey)
 }
