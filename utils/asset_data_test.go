@@ -13,17 +13,17 @@ func TestEncodeERC20AssetData(t *testing.T) {
 	assetData, err := EncodeERC20AssetData(address)
 	require.NoError(t, err)
 
-	assert.Equal(t, "0xf47261b00000000000000000000000001dc4c1cefef38a777b15aa20260a54e584b16c48", assetData)
+	assert.Equal(t, common.FromHex("0xf47261b00000000000000000000000001dc4c1cefef38a777b15aa20260a54e584b16c48"), assetData)
 }
 
 func TestDecodeERC20AssetData(t *testing.T) {
-	_, err := DecodeERC20AssetData("0x123")
+	_, err := DecodeERC20AssetData(common.FromHex("0x123"))
 	assert.Equal(t, "Wrong length of assetData", err.Error())
 
-	_, err = DecodeERC20AssetData("0x08e937fa0000000000000000000000001dc4c1cefef38a777b15aa20260a54e584b16c48")
+	_, err = DecodeERC20AssetData(common.FromHex("0x08e937fa0000000000000000000000001dc4c1cefef38a777b15aa20260a54e584b16c48"))
 	assert.Equal(t, "Wrong transfer proxy ID", err.Error())
 
-	tokenAddr, err := DecodeERC20AssetData("0xf47261b00000000000000000000000001dc4c1cefef38a777b15aa20260a54e584b16c48")
+	tokenAddr, err := DecodeERC20AssetData(common.FromHex("0xf47261b00000000000000000000000001dc4c1cefef38a777b15aa20260a54e584b16c48"))
 	require.NoError(t, err)
 	assert.Equal(t, common.HexToAddress("0x1dc4c1cefef38a777b15aa20260a54e584b16c48"), tokenAddr)
 }

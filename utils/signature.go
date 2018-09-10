@@ -10,9 +10,7 @@ import (
 	"github.com/ethereum/go-ethereum/signer/core"
 )
 
-func Signature(key *ecdsa.PrivateKey, orderHash string, signType int) (signHex string, err error) {
-	var sign []byte
-
+func Signature(key *ecdsa.PrivateKey, orderHash []byte, signType int) (sign []byte, err error) {
 	switch signType {
 	case SIGNTYPE_Illegal:
 	case SIGNTYPE_Invalid:
@@ -23,14 +21,13 @@ func Signature(key *ecdsa.PrivateKey, orderHash string, signType int) (signHex s
 	case SIGNTYPE_Validator:
 	case SIGNTYPE_PreSigned:
 	default:
-		return signHex, errors.New("Not support signatrue")
+		return []byte{}, errors.New("Not support signatrue")
 	}
 
-	return common.ToHex(sign), nil
+	return
 }
 
-func IsValidSignture(orderHash string, makerAddr common.Address, signature string) (isValid bool) {
-	sign := common.FromHex(signature)
+func IsValidSignture(orderHash []byte, makerAddr common.Address, sign []byte) (isValid bool) {
 	if len(sign) < 1 {
 		return
 	}
@@ -54,8 +51,8 @@ func IsValidSignture(orderHash string, makerAddr common.Address, signature strin
 	return
 }
 
-func ethSign(key *ecdsa.PrivateKey, orderHash string) (sign []byte, err error) {
-	hash, _ := core.SignHash(common.FromHex(orderHash))
+func ethSign(key *ecdsa.PrivateKey, orderHash []byte) (sign []byte, err error) {
+	hash, _ := core.SignHash(orderHash)
 	sign, err = crypto.Sign(hash, key)
 	if err != nil {
 		return
@@ -68,7 +65,7 @@ func ethSign(key *ecdsa.PrivateKey, orderHash string) (sign []byte, err error) {
 	return
 }
 
-func ethSignValidator(orderHash string, address common.Address, sign []byte) (isValid bool) {
+func ethSignValidator(orderHash []byte, address common.Address, sign []byte) (isValid bool) {
 	if len(sign) != 65 {
 		return
 	}
@@ -79,7 +76,7 @@ func ethSignValidator(orderHash string, address common.Address, sign []byte) (is
 	sign[0] -= 27
 
 	sign = append(sign[1:], sign[:1]...)
-	hash, _ := core.SignHash(common.FromHex(orderHash))
+	hash, _ := core.SignHash(orderHash)
 
 	recoverPub, err := crypto.Ecrecover(hash, sign)
 	if err != nil {
