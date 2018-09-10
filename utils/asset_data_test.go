@@ -33,8 +33,3 @@ func TestEncodeERC721AssetData(t *testing.T) {
 
 func TestDecodeERC721AssetData(t *testing.T) {
 }
-
-func TestGenABI(t *testing.T) {
-	_, err := genABI(ERC20_ABI)
-	assert.NoError(t, err)
-}

@@ -11,4 +11,6 @@ type Config struct {
 	ForwarderContractAddress   common.Address
 	GasPrice                   int64
 	ZrxContractAddress         common.Address
+
+	WethAddress common.Address
 }

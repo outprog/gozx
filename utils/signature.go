@@ -26,8 +26,7 @@ func Signature(key *ecdsa.PrivateKey, orderHash string, signType int) (signHex s
 		return signHex, errors.New("Not support signatrue")
 	}
 
-	signHex = common.ToHex(sign)
-	return
+	return common.ToHex(sign), nil
 }
 
 func IsValidSignture(orderHash string, makerAddr common.Address, signature string) (isValid bool) {
@@ -92,6 +91,5 @@ func ethSignValidator(orderHash string, address common.Address, sign []byte) (is
 	}
 	addr := crypto.PubkeyToAddress(*pubKey)
 
-	isValid = addr == address
-	return
+	return addr == address
 }

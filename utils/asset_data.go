@@ -9,13 +9,18 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 )
 
-func EncodeERC20AssetData(tokenAddr common.Address) (assetData string, err error) {
-	erc20, err := genABI(ERC20_ABI)
-	if err != nil {
-		return
-	}
+var erc20ABI abi.ABI
 
-	res, err := erc20.Pack("ERC20Token", tokenAddr)
+func init() {
+	var err error
+	erc20ABI, err = abi.JSON(strings.NewReader(ERC20_ABI))
+	if err != nil {
+		panic(err)
+	}
+}
+
+func EncodeERC20AssetData(tokenAddr common.Address) (assetData string, err error) {
+	res, err := erc20ABI.Pack("ERC20Token", tokenAddr)
 	if err != nil {
 		return
 	}
@@ -32,12 +37,7 @@ func DecodeERC20AssetData(assetData string) (tokenAddr common.Address, err error
 		return
 	}
 
-	erc20, err := genABI(ERC20_ABI)
-	if err != nil {
-		return
-	}
-
-	if bytes.Compare(by[:4], erc20.Methods["ERC20Token"].Id()) != 0 {
+	if bytes.Compare(by[:4], erc20ABI.Methods["ERC20Token"].Id()) != 0 {
 		err = errors.New("Wrong transfer proxy ID")
 		return
 	}
@@ -50,12 +50,4 @@ func EncodeERC721AssetData() {}
 
 func DecodeERC721AssetData() string {
 	return ""
-}
-
-func genABI(sABI string) (abi.ABI, error) {
-	tokenABI, err := abi.JSON(strings.NewReader(sABI))
-	if err != nil {
-		return tokenABI, err
-	}
-	return tokenABI, nil
 }
