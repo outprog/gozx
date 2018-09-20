@@ -38,5 +38,11 @@ var (
 			Decimals: 18,
 			Type:     "ERC20",
 		},
+		"CZT": Token{
+			Symbol:   "CZT",
+			Address:  common.HexToAddress("0xa7c8cd567a2321ed6c31395de25bcbcc4ebfce17"),
+			Decimals: 22,
+			Type:     "ERC20",
+		},
 	}
 )
