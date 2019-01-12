@@ -1,6 +1,7 @@
 package client
 
 import (
+	"crypto/rand"
 	"math/big"
 	"time"
 
@@ -8,7 +9,7 @@ import (
 	"github.com/outprog/gozx/utils"
 )
 
-func (c *Client) GenOrder(makerToken, takerToken models.Token, makerAssetAmount, takerAssetAmount *big.Int) (order *models.Order, err error) {
+func (c *Client) NewOrder(makerToken, takerToken models.Token, makerAssetAmount, takerAssetAmount *big.Int) (order *models.Order, err error) {
 	makerAssetData, err := utils.EncodeERC20AssetData(makerToken.Address)
 	if err != nil {
 		return
@@ -17,7 +18,10 @@ func (c *Client) GenOrder(makerToken, takerToken models.Token, makerAssetAmount,
 	if err != nil {
 		return
 	}
-	salt := new(big.Int)
+	salt, err := rand.Prime(rand.Reader, 256)
+	if err != nil {
+		return
+	}
 
 	order = &models.Order{
 		ExchangeAddress:       c.config.ExchangeContractAddress,

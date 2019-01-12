@@ -18,8 +18,8 @@ func init() {
 	}
 }
 
-func FillOrder(order *models.Order, takerAssetFillAmount *big.Int, signatrue []byte) ([]byte, error) {
-	data, err := exchangeABI.Pack("fillOrder", order, takerAssetFillAmount, signatrue)
+func FillOrder(order *models.Order, takerAssetFillAmount *big.Int, signature []byte) ([]byte, error) {
+	data, err := exchangeABI.Pack("fillOrder", order, takerAssetFillAmount, signature)
 	if err != nil {
 		return nil, err
 	}

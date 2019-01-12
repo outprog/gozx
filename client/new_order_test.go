@@ -12,13 +12,13 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestGenOrder(t *testing.T) {
-	_, err := TestClient.GenOrder(models.KovanTokens["WETH"], models.KovanTokens["ZRX"], big.NewInt(1), big.NewInt(1))
+func TestNewOrder(t *testing.T) {
+	_, err := TestClient.NewOrder(models.KovanTokens["WETH"], models.KovanTokens["ZRX"], big.NewInt(1), big.NewInt(1))
 	require.NoError(t, err)
 }
 
 func TestSignOrder(t *testing.T) {
-	order, err := TestClient.GenOrder(models.KovanTokens["WETH"], models.KovanTokens["ZRX"], big.NewInt(1), big.NewInt(1))
+	order, err := TestClient.NewOrder(models.KovanTokens["WETH"], models.KovanTokens["ZRX"], big.NewInt(1), big.NewInt(1))
 	require.NoError(t, err)
 
 	sign, err := TestClient.SignOrder(order, utils.SIGNTYPE_EthSign)

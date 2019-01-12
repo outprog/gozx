@@ -21,3 +21,19 @@ type Order struct {
 	TakerAssetData        []byte
 	TakerFee              *big.Int
 }
+
+func (o *Order) String() string {
+	return "exchangeAddress: " + o.ExchangeAddress.String() +
+		"\nexpirationTimeSeconds: " + o.ExpirationTimeSeconds.String() +
+		"\nFeeRecipientAddress: " + o.FeeRecipientAddress.String() +
+		"\nMakerAddress: " + o.MakerAddress.String() +
+		"\nMakerAssetAmount: " + o.MakerAssetAmount.String() +
+		"\nMakerAssetData: " + common.Bytes2Hex(o.MakerAssetData) +
+		"\nMakerFee: " + o.MakerFee.String() +
+		"\nSalt: " + o.Salt.String() +
+		"\nSenderAddress: " + o.SenderAddress.String() +
+		"\nTakerAddress: " + o.TakerAddress.String() +
+		"\nTakerAssetAmount: " + o.TakerAssetAmount.String() +
+		"\nTakerAssetData: " + common.Bytes2Hex(o.TakerAssetData) +
+		"\nTakerFee: " + o.TakerFee.String()
+}
