@@ -27,7 +27,8 @@
 
 [[constraint]]
   name = "github.com/ethereum/go-ethereum"
-  version = "1.8.18"
+  branch = "master"
+  source = "github.com/ethereum/go-ethereum"
 
 [[constraint]]
   name = "github.com/stretchr/testify"
