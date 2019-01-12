@@ -12,6 +12,6 @@ test:
 
 dep:
 	dep ensure -v
-	cp -r ./dependence/hidapi ./vendor/github.com/karalabe/hid/
-	cp -r ./dependence/libusb ./vendor/github.com/karalabe/hid/
-	cp -r ./dependence/crypto ./vendor/github.com/ethereum/go-ethereum/
+	cp -r ./dependency/hidapi ./vendor/github.com/karalabe/hid/
+	cp -r ./dependency/libusb ./vendor/github.com/karalabe/hid/
+	cp -r ./dependency/crypto ./vendor/github.com/ethereum/go-ethereum/
