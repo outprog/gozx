@@ -88,8 +88,9 @@ Before fillOrder, you should approve token's `transferFrom` to `Erc20ProxyContra
 
 	// taker: fillorder
 	nonce, err := takerClient.Nonce()
+	gasPrice := new(big.Int).SetUint64(13*1e9)
 	require.NoError(t, err)
-	txHash, err := takerClient.FillOrder(order, new(big.Int).SetUint64(1e18), signature, nonce)
+	txHash, err := takerClient.FillOrder(order, new(big.Int).SetUint64(1e18), signature, gasPrice, nonce)
 	require.NoError(t, err)
 	fmt.Println("txHash:", txHash.String())
 ```

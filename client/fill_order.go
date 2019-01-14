@@ -1,38 +1,45 @@
 package client
 
 import (
-	"context"
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/outprog/gozx/contracts/exchange"
 	"github.com/outprog/gozx/models"
 )
 
-func (c *Client) FillOrder(order *models.Order, takerAssetFillAmount *big.Int, signature []byte, nonce uint64) (txHash common.Hash, err error) {
+func (c *Client) FillOrder(order models.Order, takerAssetFillAmount *big.Int, signature []byte, gasPrice *big.Int, nonce uint64) (txHash common.Hash, err error) {
 	input, err := exchange.FillOrder(order, takerAssetFillAmount, signature)
 	if err != nil {
-		return
+		return common.Hash{}, err
 	}
 
-	tx, err := types.SignTx(types.NewTransaction(
-		nonce,
-		c.config.ExchangeContractAddress,
-		big.NewInt(0),
-		models.GasLimit,
-		big.NewInt(10000),
-		input),
-		c.signer, c.key)
+	return c.exchangeSender(input, gasPrice, nonce)
+}
+
+func (c *Client) FillOrderNoThrow(order models.Order, takerAssetFillAmount *big.Int, signature []byte, gasPrice *big.Int, nonce uint64) (txHash common.Hash, err error) {
+	input, err := exchange.FillOrderNoThrow(order, takerAssetFillAmount, signature)
 	if err != nil {
-		return
+		return common.Hash{}, err
 	}
 
-	err = c.ec.SendTransaction(context.TODO(), tx)
+	return c.exchangeSender(input, gasPrice, nonce)
+}
+
+func (c *Client) BatchFillOrders(orders []models.Order, takerAssetFillAmounts []*big.Int, signatures [][]byte, gasPrice *big.Int, nonce uint64) (common.Hash, error) {
+	input, err := exchange.BatchFillOrders(orders, takerAssetFillAmounts, signatures)
 	if err != nil {
-		return
+		return common.Hash{}, err
 	}
 
-	txHash = tx.Hash()
-	return
+	return c.exchangeSender(input, gasPrice, nonce)
+}
+
+func (c *Client) BatchFillOrdersNoThrow(orders []models.Order, takerAssetFillAmounts []*big.Int, signatures [][]byte, gasPrice *big.Int, nonce uint64) (common.Hash, error) {
+	input, err := exchange.BatchFillOrdersNoThrow(orders, takerAssetFillAmounts, signatures)
+	if err != nil {
+		return common.Hash{}, err
+	}
+
+	return c.exchangeSender(input, gasPrice, nonce)
 }

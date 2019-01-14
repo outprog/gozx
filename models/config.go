@@ -1,6 +1,8 @@
 package models
 
-import "github.com/ethereum/go-ethereum/common"
+import (
+	"github.com/ethereum/go-ethereum/common"
+)
 
 type Config struct {
 	EthRPC string

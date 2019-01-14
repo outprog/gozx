@@ -9,7 +9,7 @@ import (
 	"github.com/outprog/gozx/utils"
 )
 
-func (c *Client) NewOrder(makerToken, takerToken models.Token, makerAssetAmount, takerAssetAmount *big.Int) (order *models.Order, err error) {
+func (c *Client) NewOrder(makerToken, takerToken models.Token, makerAssetAmount, takerAssetAmount *big.Int) (order models.Order, err error) {
 	makerAssetData, err := utils.EncodeERC20AssetData(makerToken.Address)
 	if err != nil {
 		return
@@ -23,7 +23,7 @@ func (c *Client) NewOrder(makerToken, takerToken models.Token, makerAssetAmount,
 		return
 	}
 
-	order = &models.Order{
+	order = models.Order{
 		ExchangeAddress:       c.config.ExchangeContractAddress,
 		ExpirationTimeSeconds: big.NewInt((time.Now().Unix() + 60*60)),
 		FeeRecipientAddress:   models.NullAddress,
@@ -41,6 +41,6 @@ func (c *Client) NewOrder(makerToken, takerToken models.Token, makerAssetAmount,
 	return
 }
 
-func (c *Client) SignOrder(order *models.Order, signType int) (sign []byte, err error) {
-	return utils.Signature(c.key, utils.GetOrderHash(order), signType)
+func (c *Client) SignOrder(order models.Order, signType int) (sign []byte, err error) {
+	return utils.Signature(c.key, utils.GetOrderHash(&order), signType)
 }
