@@ -80,3 +80,12 @@ func BatchCancelOrders(orders []models.Order) ([]byte, error) {
 
 	return data, nil
 }
+
+func MatchOrders(leftOrder, rightOrder models.Order, leftSignature, rightSignature []byte) ([]byte, error) {
+	data, err := exchangeABI.Pack("matchOrders", leftOrder, rightOrder, leftSignature, rightSignature)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}

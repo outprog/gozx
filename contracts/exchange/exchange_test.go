@@ -70,3 +70,8 @@ func TestBatchCancelOrders(t *testing.T) {
 	_, err := BatchCancelOrders([]models.Order{testOrder, testOrder})
 	assert.NoError(t, err)
 }
+
+func TestMatchOrders(t *testing.T) {
+	_, err := MatchOrders(testOrder, testOrder, testSignature, testSignature)
+	assert.NoError(t, err)
+}
