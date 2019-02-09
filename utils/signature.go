@@ -5,9 +5,9 @@ import (
 	"errors"
 	"strconv"
 
+	"github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/signer/core"
 )
 
 func Signature(key *ecdsa.PrivateKey, orderHash []byte, signType int) (sign []byte, err error) {
@@ -52,7 +52,7 @@ func IsValidSignture(orderHash []byte, makerAddr common.Address, sign []byte) (i
 }
 
 func ethSign(key *ecdsa.PrivateKey, orderHash []byte) (sign []byte, err error) {
-	hash, _ := core.SignHash(orderHash)
+	hash, _ := accounts.TextAndHash(orderHash)
 	sign, err = crypto.Sign(hash, key)
 	if err != nil {
 		return
@@ -76,7 +76,7 @@ func ethSignValidator(orderHash []byte, address common.Address, sign []byte) (is
 	sign[0] -= 27
 
 	sign = append(sign[1:], sign[:1]...)
-	hash, _ := core.SignHash(orderHash)
+	hash, _ := accounts.TextAndHash(orderHash)
 
 	recoverPub, err := crypto.Ecrecover(hash, sign)
 	if err != nil {
