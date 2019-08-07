@@ -9,7 +9,3 @@ PACKAGE := github.com/outprog/gozx
 
 test:
 	sh ./test.sh
-
-dep:
-	dep ensure -v
-	cp -r ./dependency/crypto ./vendor/github.com/ethereum/go-ethereum/
