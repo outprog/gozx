@@ -29,7 +29,7 @@ func DecodeERC20AssetData(assetData []byte) (tokenAddr common.Address, err error
 		return
 	}
 
-	if bytes.Compare(assetData[:4], erc20ABI.Methods["ERC20Token"].Id()) != 0 {
+	if bytes.Compare(assetData[:4], erc20ABI.Methods["ERC20Token"].ID) != 0 {
 		err = errors.New("Wrong transfer proxy ID")
 		return
 	}
