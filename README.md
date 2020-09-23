@@ -8,7 +8,7 @@ Implement 0x client & 0x utils
 ## Test
 
 ```
-make test
+ETH_PRC={{kovanRPC}} make test
 ```
 
 ## Config

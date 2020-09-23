@@ -41,6 +41,11 @@ func TestFillOrder(t *testing.T) {
 	assert.NoError(t, err)
 }
 
+func TestFillOrKillOrder(t *testing.T) {
+	_, err := FillOrKillOrder(testOrder, big.NewInt(1), testSignature)
+	assert.NoError(t, err)
+}
+
 func TestFillOrderNoThrow(t *testing.T) {
 	_, err := FillOrderNoThrow(testOrder, big.NewInt(1), testSignature)
 	assert.NoError(t, err)
@@ -73,5 +78,13 @@ func TestBatchCancelOrders(t *testing.T) {
 
 func TestMatchOrders(t *testing.T) {
 	_, err := MatchOrders(testOrder, testOrder, testSignature, testSignature)
+	assert.NoError(t, err)
+}
+
+func TestExecuteTransaction(t *testing.T) {
+	fillData, err := FillOrKillOrder(testOrder, big.NewInt(1), testSignature)
+	assert.NoError(t, err)
+
+	_, err = ExecuteTransaction(testOrder.Salt, testOrder.TakerAddress, fillData, testSignature)
 	assert.NoError(t, err)
 }

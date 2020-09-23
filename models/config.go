@@ -1,6 +1,8 @@
 package models
 
 import (
+	"os"
+
 	"github.com/ethereum/go-ethereum/common"
 )
 
@@ -24,7 +26,7 @@ const (
 // Config for kovan
 var (
 	KovanConfig = Config{
-		EthRPC: "https://kovan.infura.io/v3/",
+		EthRPC: os.Getenv("ETH_RPC"),
 
 		Erc20ProxyContractAddress:  common.HexToAddress("0xf1ec01d6236d3cd881a0bf0130ea25fe4234003e"),
 		Erc721ProxyContractAddress: common.HexToAddress("0x2a9127c745688a165106c11cd4d647d2220af821"),

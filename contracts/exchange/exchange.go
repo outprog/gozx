@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/outprog/gozx/models"
 )
 
@@ -20,6 +21,15 @@ func init() {
 
 func FillOrder(order models.Order, takerAssetFillAmount *big.Int, signature []byte) ([]byte, error) {
 	data, err := exchangeABI.Pack("fillOrder", order, takerAssetFillAmount, signature)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
+func FillOrKillOrder(order models.Order, takerAssetFillAmount *big.Int, signature []byte) ([]byte, error) {
+	data, err := exchangeABI.Pack("fillOrKillOrder", order, takerAssetFillAmount, signature)
 	if err != nil {
 		return nil, err
 	}
@@ -83,6 +93,15 @@ func BatchCancelOrders(orders []models.Order) ([]byte, error) {
 
 func MatchOrders(leftOrder, rightOrder models.Order, leftSignature, rightSignature []byte) ([]byte, error) {
 	data, err := exchangeABI.Pack("matchOrders", leftOrder, rightOrder, leftSignature, rightSignature)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
+func ExecuteTransaction(salt *big.Int, signerAddress common.Address, data []byte, signature []byte) ([]byte, error) {
+	data, err := exchangeABI.Pack("executeTransaction", salt, signerAddress, data, signature)
 	if err != nil {
 		return nil, err
 	}
